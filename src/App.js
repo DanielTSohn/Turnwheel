@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { supabase } from './supabaseClient';
-import { Container } from '@mui/material';
 import { BasicTabs } from './NavigationTabs';
 import './App.css';
 
@@ -69,6 +68,7 @@ function App() {
     <div className="App">
       <header className="App-header">
       <BasicTabs />
+      <Characters />
       </header>
     </div>
   );
