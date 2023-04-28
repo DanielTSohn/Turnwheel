@@ -1,8 +1,26 @@
 import { useState } from 'react'
 import { supabase } from './supabaseClient';
-import { BasicTabs } from './NavigationTabs';
+import { BasicTabs } from './navigationTabs';
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './App.css';
 
+const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnmount: false,
+      refetchOnReconnect: false,
+      retry: false,
+      staleTime: twentyFourHoursInMs,
+    },
+  },
+});
 
 // Gets playable characters via Query to Supabase
 function Characters() 
@@ -66,10 +84,36 @@ function Characters()
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      <BasicTabs />
-      <Characters />
-      </header>
+        <BasicTabs />
+      <React.Fragment>
+        <CssBaseline />
+        <Grid2 container spacing={2}>
+          <Grid2 xs={6}>
+            <Container maxWidth = "xl">
+              <Box sx={{ bgcolor: '#cfe8fc', height: '30vh', width: '100%'}}>
+              Hello world
+              </Box>
+            </Container>
+          </Grid2>
+          <Grid2 xs={6}>
+            <Container maxWidth = "xl">
+              <Box sx={{ bgcolor: '#cfe8fc', height: '30vh', width: '100%' }}>
+              Hello world
+              </Box>
+            </Container>
+          </Grid2>
+          <Grid2 xs={12}>
+            <Container maxWidth = "xl">
+              <Box sx={{ bgcolor: '#cfe8fc', height: '40vh', width: '100%' }}>
+              Hello world
+              </Box>
+            </Container>
+          </Grid2>
+        </Grid2>
+      <QueryClientProvider client={queryClient}>
+        <Characters />
+      </QueryClientProvider>
+      </React.Fragment>
     </div>
   );
 }
