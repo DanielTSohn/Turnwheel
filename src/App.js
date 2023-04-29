@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react'
 import { supabase } from './supabaseClient';
+import { BasicTabs } from './NavigationTabs';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -83,6 +84,7 @@ function Characters()
 function App() {
   return (
     <div className="App">
+      <BasicTabs />
       <React.Fragment>
         <CssBaseline />
         <Grid2 container spacing={2}>
