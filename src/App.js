@@ -1,85 +1,12 @@
 import * as React from 'react';
-import { useState } from 'react'
-import { supabase } from './supabaseClient';
 import { BasicTabs } from './NavigationTabs';
+import { CharacterNames } from './playableCharactersNoQuery';
+import { Enemies } from './eemyCharactersNoQuery'
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './App.css';
-
-const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      refetchOnmount: false,
-      refetchOnReconnect: false,
-      retry: false,
-      staleTime: twentyFourHoursInMs,
-    },
-  },
-});
-
-// Gets playable characters via Query to Supabase
-function Characters() 
-{
-  const [characterStats, setCharacters] = useState([]);
-  async function getCharacters() 
-  {
-    let { data: char_growth_rates, error } = await supabase
-    .from('char_growth_rates')
-    .select('*')
-    // Update the state
-    setCharacters(char_growth_rates);
-    if (error)
-    {
-      alert("Cannot get character data!")
-    }
-  }
-  // Execute the function
-  getCharacters();
-  // Below is what displays when you use <Library />
-  return (
-    <table>
-    {
-      <div>
-        <thead>
-          <tr>
-            <th scope = "col">Name</th>
-            <th scope = "col">Health</th>
-            <th scope = "col">Strength</th>
-            <th scope = "col">Magic</th>
-            <th scope = "col">Dexterity</th>
-            <th scope = "col">Speed</th>
-            <th scope = "col">Defense</th>
-            <th scope = "col">Resistance</th>
-            <th scope = "col">Luck</th>
-            <th scope = "col">Build</th>
-          </tr>
-        </thead>
-        {
-        characterStats.map((c)=> (
-          <tbody>
-            <th scope = "row">{c.Character}</th>
-            <td>{c.HP}</td>
-            <td>{c.Strength}</td>
-            <td>{c.Magic}</td>
-            <td>{c.Dexterity}</td>
-            <td>{c.Speed}</td>
-            <td>{c.Defense}</td>
-            <td>{c.Resistance}</td>
-            <td>{c.Luck}</td>
-            <td>{c.Build}</td>
-          </tbody>
-          ))
-        }
-      </div>
-    }
-    </table>
-  )
-}
 
 function App() {
   return (
@@ -87,32 +14,44 @@ function App() {
       <BasicTabs />
       <React.Fragment>
         <CssBaseline />
-        <Grid2 container spacing={2}>
+        <Grid2 container spacing={2} sx = {{mt: '2vmin'}}>
           <Grid2 xs={6}>
             <Container maxWidth = "xl">
-              <Box sx={{ bgcolor: '#cfe8fc', height: '30vh', width: '100%'}}>
-              Hello world
+              <Box sx={{ bgcolor: '#cfe8fc', height: '70vh', width: '100%'}}>
+                <Box sx={{ bgcolor: '#cf0f0f', height: '30%', width: '100%', margin: '0 auto'}}>
+              
+                </Box>
+                <Box sx={{ bgcolor: '#ff0f0f', height: 'fit-content', width: '95%', margin: '0 auto', padding: '2vmin' }}>
+                <CharacterNames />
+                </Box>
               </Box>
             </Container>
           </Grid2>
           <Grid2 xs={6}>
             <Container maxWidth = "xl">
-              <Box sx={{ bgcolor: '#cfe8fc', height: '30vh', width: '100%' }}>
-              Hello world
+              <Box sx={{ bgcolor: '#cfe8fc', height: '70vh', width: '100%'}}>
+                <Box sx={{ bgcolor: '#cf0f0f', height: '30%', width: '100%', margin: '0 auto'}}>
+            
+                </Box>
+                <Box sx={{ bgcolor: '#ff0f0f', height: 'fit-content', width: '95%', margin: '0 auto', padding: '2vmin' }}>
+                <Enemies />
+                </Box>
               </Box>
             </Container>
           </Grid2>
           <Grid2 xs={12}>
             <Container maxWidth = "xl">
-              <Box sx={{ bgcolor: '#cfe8fc', height: '40vh', width: '100%' }}>
-              Hello world
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', bgcolor: '#cfe8fc', height: '40vh', width: '100%', overflow: 'scroll' }}>
+                <Box sx={{ bgcolor: '#cf0f0f', height: '100%', width: '100%', margin: '0 auto'}}>
+            
+                </Box>
+                <Box sx={{ bgcolor: '#ff0f0f', height: '100%', width: '100%', margin: '0 auto', padding: '2vmin' }}>
+                
+                </Box>
               </Box>
             </Container>
           </Grid2>
         </Grid2>
-      <QueryClientProvider client={queryClient}>
-        <Characters />
-      </QueryClientProvider>
       </React.Fragment>
     </div>
   );
