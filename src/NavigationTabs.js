@@ -39,15 +39,13 @@ export function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box sx={{ borderBottom: '0.5vmin solid #6B4E23', bgcolor: '#C6BB71', width: '100%' }}>
+      <Box sx={{ borderBottom: 3, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Item One"/>
-          <Tab label="Item Two"/>
-          <Tab label="Item Three"/>
-          <Tab label="Item Four"/>
-          <Tab label="Item Five"/>
-          <Tab label="Item Six"/>
+          <Tab label="Map Calculator"/>
+          <Tab label="Unit Builder"/>
+          <Tab label="Army Manager"/>
+          <Tab label="Run Calculator"/>
         </Tabs>
       </Box>
     </Box>
